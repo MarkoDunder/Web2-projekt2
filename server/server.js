@@ -12,6 +12,18 @@ app.use(cors());
 app.use(express.json());
 const port=Number(process.env.PORT)|| 3001;
 
+const exists= await db.query(
+    "SELECT EXISTS (SELECT FROM pg_tables  WHERE tablename  = 'programmers');"      
+);
+
+if(exists==false){
+    await db.query("Insert into programmers(name, company_mail, wage, position, years_of_experience) values('Sanjeev','sanji@gmail.com0',2000, 'senior dev', 7), ('Wei', 'wei@fer.hr', 1500, 'mid dev', 4), ('Mark', 'mark@hotmail.com', 1250,'junior dev', 2);")
+}
+    
+       
+   
+    
+
 app.listen(port, ()=>{
     console.log(`server is listening on port ${port}`);
 });
@@ -46,3 +58,4 @@ app.get("/api/v1/user/:id", async (req,res)=>{
         console.log(error.message);   
     }
 })
+
