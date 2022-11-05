@@ -17,6 +17,9 @@ const exists= await db.query(
 );
 
 if(exists==false){
+    await db.query(
+"Create table programmers( prog_id  serial unique primary key, name varchar(80), company_mail varchar(80), wage int, position varchar(80),years_of_experience int);"
+    );
     await db.query("Insert into programmers(name, company_mail, wage, position, years_of_experience) values('Sanjeev','sanji@gmail.com0',2000, 'senior dev', 7), ('Wei', 'wei@fer.hr', 1500, 'mid dev', 4), ('Mark', 'mark@hotmail.com', 1250,'junior dev', 2);")
 }
     
