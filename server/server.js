@@ -13,16 +13,17 @@ app.use(express.json());
 const port=Number(process.env.PORT)|| 3001;
 
 async function tableCheck (){
-const exists= await db.query(
+    const exists= await db.query(
     "SELECT EXISTS (SELECT FROM pg_tables  WHERE tablename  = 'programmers');"      
-);
-
-if(exists==false){
-    await db.query(
-"Create table programmers( prog_id  serial unique primary key, name varchar(80), company_mail varchar(80), wage int, position varchar(80),years_of_experience int);"
     );
-    await db.query("Insert into programmers(name, company_mail, wage, position, years_of_experience) values('Sanjeev','sanji@gmail.com0',2000, 'senior dev', 7), ('Wei', 'wei@fer.hr', 1500, 'mid dev', 4), ('Mark', 'mark@hotmail.com', 1250,'junior dev', 2);")
-}
+
+    if(exists.rows.length==0){
+        console.log("Unos")
+        await db.query(
+        "Create table programmers( prog_id  serial unique primary key, name varchar(80), company_mail varchar(80), wage int, position varchar(80),years_of_experience int);"
+        );
+        await db.query("Insert into programmers(name, company_mail, wage, position, years_of_experience) values('Sanjeev','sanji@gmail.com0',2000, 'senior dev', 7), ('Wei', 'wei@fer.hr', 1500, 'mid dev', 4), ('Mark', 'mark@hotmail.com', 1250,'junior dev', 2);")
+    }
 }
     
        
@@ -46,8 +47,8 @@ app.get("/api/v1/userInfo/:id", async (req,res)=>{
         })
     } 
     catch (error) {
-    console.log(error.message);
-    res.status(400).json({ message: "Please type in your correct identifier" });    
+        console.log(error.message);
+        res.status(400).json({ message: "Please type in your correct identifier" });    
     }
 })
 
