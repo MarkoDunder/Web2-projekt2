@@ -13,6 +13,7 @@ app.use(express.json());
 const port=Number(process.env.PORT)|| 3001;
 
 async function tableCheck (){
+    console.log("Table check");
     const exists= await db.query(
     "SELECT EXISTS (SELECT FROM pg_tables  WHERE tablename  = 'programmers');"      
     );
@@ -28,13 +29,13 @@ async function tableCheck (){
     
        
    
-    
+tableCheck();    
 
 app.listen(port, ()=>{
     console.log(`server is listening on port ${port}`);
 });
 
-tableCheck();
+
 
 app.get("/api/v1/userInfo/:id", async (req,res)=>{
     try {
