@@ -15,7 +15,7 @@ const port=Number(process.env.PORT)|| 3001;
 async function tableCheck (){
     console.log("Table check");
     const exists= await db.query(
-    "SELECT EXISTS (SELECT FROM pg_tables  WHERE tablename  = 'programmers');"      
+    "SELECT * FROM pg_tables  WHERE tablename  = 'programmers'"      
     );
 
     if(exists.rows.length==0){
