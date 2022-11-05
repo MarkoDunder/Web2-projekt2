@@ -1,6 +1,6 @@
 const {Pool} = require('pg');
-import dotenv from 'dotenv'
-dotenv.config()
+require("dotenv").config();
+
 
 const pool= new Pool({
     connectionString: process.env.EXTERNAL_URL,
